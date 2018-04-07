@@ -1,7 +1,10 @@
 var gulp = require('gulp');
 var less = require('gulp-less');
-var autoprefixer = require('gulp-autoprefixer');
 var path = require('path');
+var autoprefixer = require('gulp-autoprefixer');
+const jshint = require('gulp-jshint');
+var uglify = require('gulp-uglify');
+var pump = require('pump');
 var browserSync = require('browser-sync').create();
 
 ///////// Compile LESS
@@ -29,8 +32,31 @@ gulp.task('less-watch', ['less'], function (done) {
 
 
 //// JavaScript
+//jslint
+gulp.task('jslint', function() {
+    return gulp.src('./js/**/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
+});
 
+//uglify
+gulp.task('uglify', function (cb) {
+    pump([
+          gulp.src('./js/**/*.js'),
+          uglify(),
+          gulp.dest('./js'),
+          browserSync.stream()
+      ],
+      cb
+    );
+  });
 
+// create a task that ensures the `jslint` and `uglify` tasks are complete before
+// reloading browsers
+gulp.task('js-watch', ['jslint', 'uglify'], function (done) {
+    browserSync.reload();
+    done();
+});
 
 
 
@@ -43,6 +69,7 @@ gulp.task('serve', ['less-watch'], function() {
     });
 
     gulp.watch("less/*.less", ['less-watch']);
+    gulp.watch("js/**/*.js", ["js-watch"]);
     gulp.watch("*.html").on('change', browserSync.reload);
 });
 
