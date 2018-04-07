@@ -1,11 +1,13 @@
 <p>
-    <h1><img height="40" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">&nbsp;&nbsp;Gulp Less Starter Pack
+    <h1><img height="40" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">&nbsp;&nbsp;Gulp Less Starter
    </h1>
 </p>
 
 > A less based starter kit compile less into css, compress javascript and provide a dev-server
 
 ## Usage
+
+All the less files and js files located in assests folder. compiled css file will be in css folder and compressed js files will be in js folder.
 
 ```bash
 # install dependencies
@@ -30,3 +32,10 @@ npm start
     "pump": "^3.0.0"
   }
 ```
+
+## Author and License
+
+**Author**: [Thilina Sandaruwan](https://www.thilinasandaru1.com/)
+
+This project is licensed under the MIT License
+
