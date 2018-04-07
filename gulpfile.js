@@ -10,11 +10,13 @@ gulp.task('less', function () {
     .pipe(less({
       paths: [ path.join(__dirname, 'less', 'includes') ]
     }))
-    .pipe(gulp.dest('./css'))
-    pipe(autoprefixer({
-        browsers: ['last 2 versions'],
+    .pipe(autoprefixer({
+        browsers: [
+            'last 2 versions',
+        ],
         cascade: false
     }))
+    .pipe(gulp.dest('./css'))
     .pipe(browserSync.stream());
 });
 
