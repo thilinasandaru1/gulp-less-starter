@@ -7,7 +7,7 @@
 
 ## Usage
 
-All the less files and js files located in assests folder. compiled css file will be in css folder and compressed js files will be in js folder.
+All the less files and js files located in assests folder. compiled css files will be in css folder and compressed js files will be in js folder.
 
 ```bash
 # install dependencies
