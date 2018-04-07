@@ -9,7 +9,7 @@ var browserSync = require('browser-sync').create();
 
 ///////// Compile LESS
 gulp.task('less', function () {
-  return gulp.src('./less/*.less')
+  return gulp.src('./assets/less/*.less')
     .pipe(less({
       paths: [ path.join(__dirname, 'less', 'includes') ]
     }))
@@ -32,17 +32,13 @@ gulp.task('less-watch', ['less'], function (done) {
 
 
 //// JavaScript
-//jslint
-gulp.task('jslint', function() {
-    return gulp.src('./js/**/*.js')
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-});
 
-//uglify
-gulp.task('uglify', function (cb) {
+//jslint and uglify
+gulp.task('js', function (cb) {
     pump([
-          gulp.src('./js/**/*.js'),
+          gulp.src('./assets/js/*.js'),
+          jshint(),
+          jshint.reporter('default'),
           uglify(),
           gulp.dest('./js'),
           browserSync.stream()
@@ -51,9 +47,9 @@ gulp.task('uglify', function (cb) {
     );
   });
 
-// create a task that ensures the `jslint` and `uglify` tasks are complete before
+// create a task that ensures the `js` task is complete before
 // reloading browsers
-gulp.task('js-watch', ['jslint', 'uglify'], function (done) {
+gulp.task('js-watch', ['js'], function (done) {
     browserSync.reload();
     done();
 });
@@ -68,9 +64,9 @@ gulp.task('serve', ['less-watch'], function() {
         server: "./"
     });
 
-    gulp.watch("less/*.less", ['less-watch']);
-    gulp.watch("js/**/*.js", ["js-watch"]);
-    gulp.watch("*.html").on('change', browserSync.reload);
+    gulp.watch("./assets/less/*.less", ['less-watch']);
+    gulp.watch("./assets/js/*.js", ["js-watch"]);
+    gulp.watch("./*.html").on('change', browserSync.reload);
 });
 
 // Default task
