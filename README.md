@@ -3,4 +3,7 @@
    </h1>
 </p>
 
-> A less based starter kit comile less into css, uglify js and provide dev-server 
+> A less based starter kit compile less into css, compress javascript and provide a dev-server
+
+## Usage
+
