@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var less = require('gulp-less');
+var autoprefixer = require('gulp-autoprefixer');
 var path = require('path');
 var browserSync = require('browser-sync').create();
 
@@ -10,6 +11,10 @@ gulp.task('less', function () {
       paths: [ path.join(__dirname, 'less', 'includes') ]
     }))
     .pipe(gulp.dest('./css'))
+    pipe(autoprefixer({
+        browsers: ['last 2 versions'],
+        cascade: false
+    }))
     .pipe(browserSync.stream());
 });
 
@@ -21,10 +26,14 @@ gulp.task('less-watch', ['less'], function (done) {
 });
 
 
+//// JavaScript
+
+
+
 
 
 // Live Server with Browser Sync
-// Static Server + watching less/html files
+// Static Server + watching less/js/html files
 gulp.task('serve', ['less-watch'], function() {
 
     browserSync.init({
